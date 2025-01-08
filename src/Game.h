@@ -12,6 +12,7 @@
 #include "Resource.h"	
 #include "GameEngine.h"
 #include "AbstractGame.h"
+#include <sol/sol.hpp>
 
 //-----------------------------------------------------------------
 // Game Class																
@@ -54,7 +55,7 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-
+	sol::state m_lua;
 
 
 };

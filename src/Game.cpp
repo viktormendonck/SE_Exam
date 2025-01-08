@@ -7,7 +7,7 @@
 // Include Files
 //-----------------------------------------------------------------
 #include "Game.h"
-
+#include <sol/sol.hpp>
 //-----------------------------------------------------------------
 // Game Member Functions																				
 //-----------------------------------------------------------------
@@ -32,6 +32,10 @@ void Game::Initialize()
 	GAME_ENGINE->SetWidth(1024);
 	GAME_ENGINE->SetHeight(768);
     GAME_ENGINE->SetFrameRate(50);
+	m_lua.open_libraries(sol::lib::base, sol::lib::coroutine, sol::lib::string, sol::lib::io);
+	m_lua.script_file("lua/test.lua");
+	m_lua["viktor"]();
+	
 
 	// Set the keys that the game needs to listen to
 	//tstringstream buffer;

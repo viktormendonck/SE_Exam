@@ -160,13 +160,15 @@ private:
 	void		FormPolygon			(const POINT ptsArr[], int count, bool close)			const;
 	POINT		AngleToPoint		(int left, int top, int right, int bottom, int angle)	const;
 
+	void AllocateConsole();
+
 	// Member Variables
 	HINSTANCE           m_Instance			{};
 	HWND                m_Window			{};
 	tstring				m_Title				{};
 	int                 m_Width				{};
 	int					m_Height			{};
-	int                 m_FrameRate			{ 50 };
+	int                 m_FrameRate			{ 60 };
 	int					m_FrameDelay		{ 1000 / m_FrameRate };
 	bool				m_RunGameLoop		{ true };
 	TCHAR*				m_KeyListPtr		{};
@@ -176,6 +178,8 @@ private:
 
 	// GDI+ for PNG loading
 	ULONG_PTR			m_GDIPlusToken;
+
+
 
 	// Draw assistance variables
 	HDC					m_HdcDraw			{};
