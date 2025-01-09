@@ -8,6 +8,9 @@
 //-----------------------------------------------------------------
 #include "Game.h"
 #include <sol/sol.hpp>
+#include "Vector.h"
+#include "Color.h"
+#include "DrawingBindings.h"
 //-----------------------------------------------------------------
 // Game Member Functions																				
 //-----------------------------------------------------------------
@@ -24,25 +27,15 @@ Game::~Game()
 
 void Game::Initialize()			
 {
+	CreateBindings();
 	// Code that needs to execute (once) at the start of the game, before the game window is created
 
 	AbstractGame::Initialize();
-	GAME_ENGINE->SetTitle(_T("Game Engine version 8_01"));	
-	
 	GAME_ENGINE->SetWidth(1024);
 	GAME_ENGINE->SetHeight(768);
     GAME_ENGINE->SetFrameRate(50);
-	m_lua.open_libraries(sol::lib::base, sol::lib::coroutine, sol::lib::string, sol::lib::io);
-	m_lua.script_file("lua/test.lua");
-	m_lua["viktor"]();
+	state.script_file("lua/test.lua");
 	
-
-	// Set the keys that the game needs to listen to
-	//tstringstream buffer;
-	//buffer << _T("KLMO");
-	//buffer << (char) VK_LEFT;
-	//buffer << (char) VK_RIGHT;
-	//GAME_ENGINE->SetKeyList(buffer.str());
 }
 
 void Game::Start()
@@ -57,6 +50,7 @@ void Game::End()
 
 void Game::Paint(RECT rect) const
 {
+	
 	// Insert paint code 
 }
 
@@ -147,9 +141,15 @@ void Game::KeyPressed(TCHAR key)
 
 void Game::CallAction(Caller* callerPtr)
 {
-	// Insert the code that needs to execute when a Caller (= Button, TextBox, Timer, Audio) executes an action
 }
 
 
 
+void Game::CreateBindings(){
+	state.open_libraries(sol::lib::base);
 
+	Vector2<float>::CreateBindings(state,_T("Vector2f"));
+	Color::CreateBindings(state);
+	DrawBindings::CreateBindings(state);
+
+}

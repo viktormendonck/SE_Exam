@@ -2,12 +2,15 @@
 
 # Specify source files and target executable
 set(PROJECT_SOURCES
-    "GameWinMain.h" "GameWinMain.cpp"
-    "GameEngine.h" "GameEngine.cpp"
-    "Game.h" "Game.cpp"
-    "AbstractGame.h" "AbstractGame.cpp"
-    "GameDefines.h"
-    "resource.h"
+  "GameWinMain.h" "GameWinMain.cpp"
+  "GameEngine.h" "GameEngine.cpp"
+  "Game.h" "Game.cpp"
+  "AbstractGame.h" "AbstractGame.cpp"
+  "GameDefines.h"
+  "resource.h"
+  "vector.h"
+  "Color.h"
+  "DrawingBindings.h"
 )
 # Enable Needed Definitions In the project
 add_compile_definitions(UNICODE)

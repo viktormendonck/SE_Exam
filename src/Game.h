@@ -55,7 +55,8 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	sol::state m_lua;
+	sol::state state;
+	void CreateBindings();
 
 
 };
