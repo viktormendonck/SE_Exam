@@ -11,6 +11,7 @@
 #include "Vector.h"
 #include "Color.h"
 #include "DrawingBindings.h"
+#include "UtilsBindings.h"
 //-----------------------------------------------------------------
 // Game Member Functions																				
 //-----------------------------------------------------------------
@@ -151,5 +152,6 @@ void Game::CreateBindings(){
 	Vector2<float>::CreateBindings(state,_T("Vector2f"));
 	Color::CreateBindings(state);
 	DrawBindings::CreateBindings(state);
+	UtilsBindings::CreateBindings(state);
 
 }
