@@ -57,6 +57,15 @@ private:
 	// -------------------------
 	sol::state state;
 	void CreateBindings();
+	sol::function solUpdate;
+	sol::function solDraw;
+	sol::function solStart;
+	sol::function solEnd;
+	sol::function solMouseAction;
+	sol::function solMouseWheelAction;
+	sol::function solMouseMove;
+	sol::function solCheckKeyboard;
+
 
 
 };

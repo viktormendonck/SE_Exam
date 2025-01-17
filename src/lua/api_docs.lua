@@ -40,11 +40,43 @@ function Vector2f.new(x, y) end
 ---@return number DistanceSquared the squared distance between this and other
 function Vector2f.DistSq(other) end
 
+--- a ref to a bitmap object doesnt actually hold data
+--- @class Bitmap
+Bitmap = {}
+
+---create a new Bitmap
+---@param fileName string
+---@param createAlphaChannel boolean
+---@return Bitmap Bitmap the constructed bitmap
+function Bitmap.new(fileName,createAlphaChannel)end
+
+---get the size of the image
+---@param Bitmap Bitmap
+---@return Vector2f size
+function Bitmap.GetSize(Bitmap)end
+
+---a ref to a Font object, doesnt actually hold data
+---@class Font
+Font = {}
+
+---makes a new font
+---@param fontName boolean
+---@param isBold boolean
+---@param isItalic boolean
+---@param isUnderlined boolean
+---@param size integer
+---@return Font font
+function Font.new(fontName,isBold,isItalic,isUnderlined,size) end
+
 --drawing funcs
 
 --- Static object for various drawing operations.
 --- @class Draw
 Draw = {}
+
+---sets the font used by following draw functions
+---@param font Font
+function Draw.setFont(font) end
 
 ---set the color for the following draw's
 ---@param color Color
@@ -69,21 +101,21 @@ function Draw.DrawRect(p1, p2) end
 ---draw a filled rectangle using the corner positions
 ---@param p1 Vector2f top right point
 ---@param p2 Vector2f bottom left point
----@param opacity number how much the rect is filled
+---@param opacity integer how much the rect is filled
 ---@return boolean succeeded
-function Draw.DrawRect(p1, p2, opacity) end
+function Draw.FillRect(p1, p2, opacity) end
 
 ---draw a rounded rectangle using the corner positions
 ---@param p1 Vector2f top right point
 ---@param p2 Vector2f bottom left point
----@param radius number how much the corners are rounded
+---@param radius integer how much the corners are rounded
 ---@return boolean succeeded
 function Draw.DrawRoundRect(p1, p2, radius) end
 
 ---draw a fill rounded rectangle using the corner positions
 ---@param p1 Vector2f top right point
 ---@param p2 Vector2f bottom left point
----@param radius number how much the corners are rounded
+---@param radius integer how much the corners are rounded
 ---@return boolean succeeded
 function Draw.FillRoundRect(p1, p2, radius) end
 
@@ -96,9 +128,9 @@ function Draw.DrawOval(p1, p2) end
 ---draw a filled oval using the corner positions
 ---@param p1 Vector2f top right point
 ---@param p2 Vector2f bottom left point
----@param opacity number how much the oval is filled
+---@param opacity integer how much the oval is filled
 ---@return boolean succeeded
-function Draw.DrawOval(p1, p2, opacity) end
+function Draw.FillOval(p1, p2, opacity) end
 
 ---draw a arc using the 2 corner positions
 ---@param p1 Vector2f top right point
@@ -135,6 +167,11 @@ function Draw.GetDrawColor() end
 
 ---Redraw the screen (should be in the beginning of your draw, doesnt happen in very specific situations)
 function Draw.Redraw() end
+
+---Draw a bitmap at a given position and scale
+---@param bitmap Bitmap
+---@param pos Vector2f
+function Draw.DrawBitMap(bitmap,pos) end
 
 --engine utils
 --- Static object for various engine utilities

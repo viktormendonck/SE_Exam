@@ -2,13 +2,14 @@
 #include <sol/sol.hpp>
 #include <windows.h>
 #include <cstdint>
+#include <memory>
 #include "GameEngine.h"
 
 
 class DrawBindings{
 public:
     static void SetColor(Color color) {GAME_ENGINE->SetColor(color.ToColorRef());}
-    //static void SetFont()
+    static void SetFont(Font* font){ GAME_ENGINE->SetFont(font); }
     static bool FillWindowRect(Color color){return GAME_ENGINE->FillWindowRect(color.ToColorRef());}
     static bool DrawLine(Vector2f p1, Vector2f p2){
         return GAME_ENGINE->DrawLine(static_cast<int>(p1.x),static_cast<int>(p1.y),static_cast<int>(p2.x),static_cast<int>(p2.y));
@@ -43,12 +44,34 @@ public:
     static int DrawStretchedString(const tstring& text, Vector2f p1, Vector2f p2) {
         return GAME_ENGINE->DrawString(text, static_cast<int>(p1.x), static_cast<int>(p1.y), static_cast<int>(p2.x), static_cast<int>(p2.y));
     }
+    
     static Color GetDrawColor(){return Color::GetColorFromColorRef(GAME_ENGINE->GetDrawColor());}
+    
     static void Redraw(){GAME_ENGINE->Repaint();};
+
+    void DrawBitmap(const Bitmap *bitmapPtr, Vector2f topLeft)
+    {
+	    GAME_ENGINE->DrawBitmap(bitmapPtr, topLeft.x, topLeft.y);
+    }
+
+    static std::unique_ptr<Font> CreateFont(const tstring& fontName, bool bold, bool italic, bool underline, int size)
+    {
+        return std::make_unique<Font>(fontName,bold,italic,underline,size);
+    }
+
+    static std::unique_ptr<Bitmap> CreateBitmap(const tstring& filename, bool createAlphaChannel)
+    {
+	    return std::make_unique<Bitmap>(filename, createAlphaChannel);
+    }
+
+    static Vector2f GetBitMapSize(Bitmap* bitmap){
+        return Vector2f{static_cast<float>(bitmap->GetWidth()),static_cast<float>(bitmap->GetHeight())};
+    }
 
     static void CreateBindings(sol::state& state){
         state.new_usertype<DrawBindings>(
             "Draw",
+            "SetFont",          &DrawBindings::SetFont,
             "SetColor",         &DrawBindings::SetColor,
             "FillWindowRect",   &DrawBindings::FillWindowRect,
             "DrawLine",         &DrawBindings::DrawLine,
@@ -63,7 +86,18 @@ public:
             "DrawString",       &DrawBindings::DrawString,
             "DrawStretchedString", &DrawBindings::DrawStretchedString,
             "GetDrawColor",     &DrawBindings::GetDrawColor,
-            "Redraw",           &DrawBindings::Redraw
+            "Redraw",           &DrawBindings::Redraw,
+            "DrawBitmap",       &DrawBindings::DrawBitmap
+        );
+
+        state.new_usertype<Bitmap>(
+            "Bitmap",
+            "new", &DrawBindings::CreateBitmap,
+            "GetSize", &DrawBindings::GetBitMapSize
+        );
+        state.new_usertype<Font>(
+            "Font",
+            "new", &DrawBindings::CreateFont
         );
     }
 };

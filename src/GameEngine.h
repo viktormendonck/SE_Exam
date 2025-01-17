@@ -104,7 +104,7 @@ public:
 	void		SetColor			(COLORREF color);
 	void		SetFont				(Font* fontPtr);
 
-	bool		FillWindowRect		(COLORREF color)														const;//bound
+	bool		FillWindowRect		(COLORREF color)														const;
 
 	bool		DrawLine			(int x1, int y1, int x2, int y2)										const;
 
@@ -128,10 +128,10 @@ public:
 	bool		DrawPolygon			(const POINT ptsArr[], int count)										const;
 	bool		DrawPolygon			(const POINT ptsArr[], int count, bool close)							const;
 	bool		FillPolygon			(const POINT ptsArr[], int count)										const;
-	bool		FillPolygon			(const POINT ptsArr[], int count, bool close)	       					const;//bound
-
-	COLORREF	GetDrawColor		()						const; //bound
-	bool		Repaint				()						const; //bound
+	bool		FillPolygon			(const POINT ptsArr[], int count, bool close)	       					const;
+	
+	COLORREF	GetDrawColor		()						const; 
+	bool		Repaint				()						const;
 
 	// Accessor Member Functions	
 	tstring		GetTitle			()						const; 
